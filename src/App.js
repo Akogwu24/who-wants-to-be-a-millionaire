@@ -1,16 +1,32 @@
 import { Box, Flex } from '@chakra-ui/layout';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import styled from '@emotion/styled';
+import { useState } from 'react';
 import './App.css';
+import Main from './components/main';
+import PriceScore from './components/priceScore';
 
+//opentdb.com/api for questions
+
+const theme = extendTheme({
+  colors: {
+    primary: '#020230',
+  },
+});
 function App() {
+  const [toggle, setToggle] = useState(false);
+
   return (
-    <ChakraProvider>
-      <Flex w='100vw' h='100vh'>
-        <Box bg='teal.500' flex={8}>
-          main
+    <ChakraProvider theme={theme}>
+      <Flex minH='100vh ' color='#FFF' pos='relative'>
+        <Box bg='#020230cc' flex={[5]}>
+          <Main setToggle={setToggle} />
         </Box>
-        <Box bg='teal.200' flex={2}>
-          amount side
+        <Box
+          bg='primary'
+          className={toggle ? 'price-score active' : 'price-score'}
+        >
+          <PriceScore />
         </Box>
       </Flex>
     </ChakraProvider>
@@ -18,3 +34,9 @@ function App() {
 }
 
 export default App;
+
+const BtnContainer = styled(Box)`
+  color: #fff;
+  // background: blue;
+  transform: translate(-10%, 400%);
+`;
