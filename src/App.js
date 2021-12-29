@@ -13,20 +13,26 @@ const theme = extendTheme({
     primary: '#020230',
   },
 });
+
 function App() {
   const [toggle, setToggle] = useState(false);
+  const [questionNumber, setQuestionNumber] = useState(0);
 
   return (
     <ChakraProvider theme={theme}>
       <Flex minH='100vh ' color='#FFF' pos='relative'>
-        <Box bg='#020230cc' flex={[5]}>
-          <Main setToggle={setToggle} />
+        <Box className='main' pt={['20px', '', '', '50px']} flex={[5]}>
+          <Main
+            questionNumber={questionNumber}
+            setQuestionNumber={setQuestionNumber}
+            setToggle={setToggle}
+          />
         </Box>
         <Box
           bg='primary'
           className={toggle ? 'price-score active' : 'price-score'}
         >
-          <PriceScore />
+          <PriceScore questionNumber={questionNumber} />
         </Box>
       </Flex>
     </ChakraProvider>
@@ -34,9 +40,3 @@ function App() {
 }
 
 export default App;
-
-const BtnContainer = styled(Box)`
-  color: #fff;
-  // background: blue;
-  transform: translate(-10%, 400%);
-`;

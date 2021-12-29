@@ -1,7 +1,15 @@
 import { Square } from '@chakra-ui/layout';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const Question = () => {
+const Question = ({ questions, questionNumber }) => {
+  const [currentQuestion, setCurrentQuestion] = useState({});
+
+  useEffect(() => {
+    setCurrentQuestion(questions[questionNumber]);
+    // setCurrentQuestion(false);
+  }, [questions, questionNumber]);
+
+  // console.log('current questions', currentQuestion);
   return (
     <Square
       border='2px solid #aaa'
@@ -9,8 +17,8 @@ const Question = () => {
       bg='linear-gradient(#22074d, black)'
       borderRadius='10px'
     >
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus sit
-      incidunt dignissimos reprehenderit nostrum voluptatum, omnis nam, eos
+      {/* <h3> &#039;</h3> */}
+      <h3>{currentQuestion && currentQuestion.question}</h3>
     </Square>
   );
 };

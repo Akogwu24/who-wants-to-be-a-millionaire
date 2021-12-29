@@ -1,17 +1,18 @@
-import { UnorderedList, ListItem, Box } from '@chakra-ui/react';
-import { useState } from 'react';
-import { questions } from '../../questions';
+import { UnorderedList, ListItem, Text } from '@chakra-ui/react';
+import { rewards } from './reward';
 
-const PriceScore = () => {
-  const [questionNumber, setQuestionNumber] = useState(1);
+const PriceScore = ({ questionNumber }) => {
   return (
     <UnorderedList w='100%' pr='10px' className='price-list'>
-      {questions?.map((question) => (
-        <ListItem className={question.id === questionNumber && 'active-price'}>
-          <span style={{ marginRight: '10%' }}>{question.id}</span>
-          <span style={{ fontWeight: 500, fontSize: '18px' }}>
-            {question.amount}
-          </span>
+      {rewards?.map((reward) => (
+        <ListItem
+          display='flex'
+          alignItems={'center'}
+          key={reward.id}
+          className={reward.id - 1 === questionNumber && 'active-price'}
+        >
+          <Text w='40px'>{reward.id}</Text>
+          <Text style={{ fontWeight: 500 }}>{reward.amount}</Text>
         </ListItem>
       ))}
     </UnorderedList>
