@@ -1,32 +1,57 @@
 import { Circle } from '@chakra-ui/layout';
-import React from 'react';
-import { Button, Flex, useMediaQuery } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import {
+  Button,
+  CircularProgress,
+  CircularProgressLabel,
+  Flex,
+  useMediaQuery,
+} from '@chakra-ui/react';
+import { timeOut } from '../../utils/timeOut';
 
-const Timer = ({ setToggle }) => {
+const Timer = ({ setToggle, setStopGame }) => {
   const [desktop] = useMediaQuery('(min-width: 920px)');
+  const [timer, setTimer] = useState(30);
+
   const handleSeeScore = () => {
     setToggle(true);
-    setTimeout(() => {
+
+    timeOut(() => {
       setToggle(false);
     }, 2500);
   };
+
+  useEffect(() => {
+    // if (timer === 0) return setStopGame(true);
+    // const interval = setInterval(() => {
+    //   setTimer((prev) => prev - 1);
+    // }, 1000);
+    // return () => clearInterval(interval);
+  }, [timer, setStopGame]);
+
   return (
     <Flex justifyContent='space-between' align='center'>
-      <Circle
-        fontSize={['1.6rem', '1.8rem', '2rem']}
-        fontWeight='600'
-        border='4px solid #fff'
-        w={['60px', '65px', '85px']}
-        h={['60px', '65px', '85px']}
+      <CircularProgress
+        size='70px'
+        min={0}
+        max={30}
+        value={timer}
+        color='gray.50'
+        thickness={'7px'}
+        trackColor={timer > 10 ? 'teal.300' : 'red.400'}
       >
-        30
-      </Circle>
+        <CircularProgressLabel fontSize={'1.5rem'}>
+          {timer}
+        </CircularProgressLabel>
+      </CircularProgress>
       {!desktop && (
         <Button
           className='see-score-btn'
           onClick={handleSeeScore}
           size={['sm']}
-          bg='teal.300'
+          bg='gray.100'
+          color='rebeccapurple'
+          _focus={{ border: 'none' }}
         >
           see your score
         </Button>
